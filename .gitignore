@@ -1,0 +1,23 @@
+# Emacs auto-saves, backups, and caches
+auto-save-list/
+backups/
+elpa/
+eshell/
+history
+recentf
+url
+
+# Custom settings that may be machine-specific
+custom.el
+
+# Lock files and system-generated
+*.elc
+*~
+\#*\#
+.\#*
+
+# macOS system files
+.DS_Store
+
+# Optional: byte-compiled files
+*.eln
