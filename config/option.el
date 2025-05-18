@@ -1,4 +1,4 @@
-
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (load-theme 'wombat)
 (scroll-bar-mode -1)
 (when (not (eq system-type 'darwin))
@@ -9,6 +9,7 @@
 (global-so-long-mode)
 (savehist-mode 1)
 (repeat-mode 1)
+(global-superword-mode)                 ;for camelCase and snake_case
 
 (make-directory (expand-file-name "backups/" user-emacs-directory) t)
 (setq backup-directory-alist `(("." . ,(expand-file-name "backups/" user-emacs-directory))))
@@ -23,6 +24,7 @@
 (setq ibuffer-movement-cycle t)
 (setq ibuffer-old-time 72)
 (setq indent-tabs-mode nil)
+(setq-default tab-width 2)
 (setq kill-do-not-save-duplicates t)
 (setq bidi-paragraph-direction 'left-to-right)
 (setq bidi-inhibit-bpa t)
@@ -30,6 +32,11 @@
 (setq savehist-file (expand-file-name "history" user-emacs-directory))
 (setq bookmark-save-flag 1)
 (setq load-prefer-newer t)
+(setq help-window-select t)  ; Switch to help buffers automatically
+
+;;for scrolling
+(setq scroll-conservatively 10
+      scroll-margin 15)
 
 (keymap-global-set "<remap> <list-buffers>" #'ibuffer-list-buffers)
 

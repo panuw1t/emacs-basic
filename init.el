@@ -53,7 +53,7 @@
   (which-key-mode))
 
 
-(my/load-config "smooth-scroll")
+;;(my/load-config "smooth-scroll")
 
 ;; completion
 (use-package vertico
@@ -82,7 +82,7 @@
   (global-corfu-mode)
   (corfu-popupinfo-mode))
 
-(use-package cape
+(use-package cape			;backend for completion
   :bind ("C-c p" . cape-prefix-map)
   :init
   (add-hook 'completion-at-point-functions #'cape-file)
@@ -97,9 +97,23 @@
   :config
   (setq eglot-autoshutdown t))  
 
-(use-package tree-sitter)
+(use-package tree-sitter
+  :config
+  (global-tree-sitter-mode)
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-ts-mode . typescript)))
+(use-package tree-sitter-langs
+  :config
+  (setq treesit-language-source-alist '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))))
 (use-package tree-sitter-indent)
 (use-package tree-sitter-ispell)
-(use-package tree-sitter-langs)
-(use-package treesit-auto)
+;; (use-package treesit-auto
+;;   :custom
+;;   (treesit-auto-install 'prompt)
+;;   :config
+;;   (treesit-auto-add-to-auto-mode-alist 'all)
+;;   (global-treesit-auto-mode))
 
+
+;;misc
+(use-package smartparens
+  :hook ((prog-mode . smartparens-mode)))

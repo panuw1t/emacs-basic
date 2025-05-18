@@ -6,6 +6,11 @@ eshell/
 history
 recentf
 url
+bookmarks
+projects
+tramp
+fonts/
+tree-sitter/
 
 # Custom settings that may be machine-specific
 custom.el

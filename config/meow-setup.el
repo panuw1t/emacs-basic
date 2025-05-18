@@ -1,3 +1,13 @@
+(defun meow-yank-replace-region ()
+  "In Meow mode: replace region with current kill, saving replaced text via `meow-kill`."
+  (interactive)
+  (let ((yank-text (current-kill 0 t)))
+    (if (and (use-region-p) yank-text)
+        (progn
+          (meow-kill)
+          (insert yank-text))
+      (meow-yank))))
+
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-define-key
@@ -6,6 +16,9 @@
    '("<escape>" . ignore))
   (meow-leader-define-key
    ;; Use SPC (0-9) for digit arguments.
+   '("<SPC>" . switch-to-buffer)
+   '("r" . "C-x r")
+   '("o" . other-window)
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
    '("3" . meow-digit-argument)
@@ -61,7 +74,7 @@
    '("n" . meow-search)
    '("v" . meow-block)
    '("V" . meow-to-block)
-   '("p" . meow-yank)
+   '("p" . meow-yank-replace-region)
    '("q" . meow-quit)
    '("Q" . meow-goto-line)
    '("r" . meow-replace)
@@ -82,5 +95,8 @@
    '(";" . execute-extended-command)
    '("<escape>" . ignore)))
 
+(setq meow-use-clipboard t)
 (meow-setup)
 (meow-global-mode 1)
+
+;; M-m to the beginning of the line without white space
