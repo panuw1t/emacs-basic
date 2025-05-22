@@ -17,6 +17,10 @@
   (meow-leader-define-key
    ;; Use SPC (0-9) for digit arguments.
    '("<SPC>" . switch-to-buffer)
+   '("f f" . project-find-file)
+   '("f r" . recentf)
+   '("e" . project-dired)
+   '("s" . project-switch-project)
    '("r" . "C-x r")
    '("o" . other-window)
    '("1" . meow-digit-argument)

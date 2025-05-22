@@ -135,3 +135,5 @@
   :hook ((prog-mode . smartparens-mode)))
 
 (use-package kotlin-mode)
+
+(use-package magit)
