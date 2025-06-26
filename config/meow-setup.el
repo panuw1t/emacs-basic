@@ -18,11 +18,14 @@
    ;; Use SPC (0-9) for digit arguments.
    '("<SPC>" . switch-to-buffer)
    '("f f" . project-find-file)
+   '("f g" . consult-ripgrep)
    '("f r" . recentf)
    '("e" . project-dired)
    '("s" . project-switch-project)
    '("r" . "C-x r")
    '("o" . other-window)
+   '("v d" . vc-dir-root)
+   '("v c" . vc-next-action)
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
    '("3" . meow-digit-argument)
@@ -97,10 +100,18 @@
    '("z" . meow-pop-selection)
    '("'" . repeat)
    '(";" . execute-extended-command)
+   '("}" . flymake-goto-next-error)
+   '("{" . flymake-goto-prev-error)
    '("<escape>" . ignore)))
 
 (setq meow-use-clipboard t)
 (meow-setup)
 (meow-global-mode 1)
+
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd ";") #'execute-extended-command))
+
+(with-eval-after-load 'vc-dir
+  (define-key vc-dir-mode-map (kbd ";") #'execute-extended-command))
 
 ;; M-m to the beginning of the line without white space

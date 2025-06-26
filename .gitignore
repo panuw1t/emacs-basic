@@ -11,6 +11,7 @@ projects
 tramp
 fonts/
 tree-sitter/
+transient/
 
 # Custom settings that may be machine-specific
 custom.el
