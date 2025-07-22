@@ -13,6 +13,7 @@
       (message "⚠️ Config file not found: %s" file))))
 
 (my/load-config "option")
+(my/load-config "my-completion")
 
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
@@ -62,31 +63,31 @@
   :init
   (vertico-mode))
 
-(use-package orderless
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+;; (use-package orderless
+;;   :custom
+;;   (completion-styles '(orderless basic))
+;;   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-(use-package marginalia
-  :bind (:map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
-  :init
-  (marginalia-mode))
+;; (use-package marginalia
+;;   :bind (:map minibuffer-local-map
+;;          ("M-A" . marginalia-cycle))
+;;   :init
+;;   (marginalia-mode))
 
-(use-package corfu
-  :custom
-  (corfu-cycle t)
-  (corfu-auto t)
-  (corfu-auto-prefix 2)
-  :init
-  (global-corfu-mode)
-  (corfu-popupinfo-mode))
+;; (use-package corfu
+;;   :custom
+;;   (corfu-cycle t)
+;;   (corfu-auto t)
+;;   (corfu-auto-prefix 2)
+;;   :init
+;;   (global-corfu-mode)
+;;   (corfu-popupinfo-mode))
 
-(use-package cape			;backend for completion
-  :bind ("C-c p" . cape-prefix-map)
-  :init
-  (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-dabbrev))
+;; (use-package cape			;backend for completion
+;;   :bind ("C-c p" . cape-prefix-map)
+;;   :init
+;;   (add-hook 'completion-at-point-functions #'cape-file)
+;;   (add-hook 'completion-at-point-functions #'cape-dabbrev))
 
 ;; lsp + tree-sitter
 (use-package eglot
@@ -98,6 +99,7 @@
          (js-ts-mode  . eglot-ensure))
   :config
   (add-to-list 'eglot-server-programs
+               '(kotlin . ("kotlin-language-server"))
                '(kotlin-ts-mode . ("kotlin-language-server")))
   (setq eglot-autoshutdown t)
   (setq eglot-ignored-server-capabilities '(:documentHighlightProvider))
@@ -131,8 +133,8 @@
 
 
 ;;misc
-(use-package smartparens
-  :hook ((prog-mode . smartparens-mode)))
+;; (use-package smartparens
+;;   :hook ((prog-mode . smartparens-mode)))
 
 (use-package kotlin-mode)
 

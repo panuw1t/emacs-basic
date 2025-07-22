@@ -18,7 +18,7 @@
    ;; Use SPC (0-9) for digit arguments.
    '("<SPC>" . switch-to-buffer)
    '("f f" . project-find-file)
-   '("f g" . consult-ripgrep)
+   '("f g" . project-find-regexp)
    '("f r" . recentf)
    '("e" . project-dired)
    '("s" . project-switch-project)
