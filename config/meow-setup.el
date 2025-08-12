@@ -83,7 +83,8 @@
    '("V" . meow-to-block)
    '("p" . meow-yank-replace-region)
    '("q" . meow-quit)
-   '("Q" . meow-goto-line)
+   '("S" . kmacro-start-macro)
+   '("Q" . kmacro-end-macro)
    '("r" . meow-replace)
    '("R" . meow-swap-grab)
    '("d" . meow-kill)
@@ -115,3 +116,6 @@
   (define-key vc-dir-mode-map (kbd ";") #'execute-extended-command))
 
 ;; M-m to the beginning of the line without white space
+
+(global-set-key (kbd "M-/") 'hippie-expand)
+

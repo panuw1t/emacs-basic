@@ -1,5 +1,13 @@
 (setq dabbrev-case-replace nil)
 
+(define-skeleton my-kotlin-insert-if
+  "Insert if-else block in Kotlin."
+  nil
+	> "if (" _ ") {\n\n"
+	 "}" >)
+
+(define-abbrev prog-mode-abbrev-table "if" "" 'my-kotlin-insert-if)
+
 ;; (setq skeleton-pair t)
 ;; (electric-pair-mode 1)
 
@@ -92,17 +100,34 @@
 	"import org.springframework.data.jpa.repository.JpaRepository\n\n"
 	"interface " (my-get-filename) " : JpaRepository<" _ ", Long> {\n\n}")
 
+(defun my-guess-kotlin-class-template ()
+  "Guess Kotlin class template from file path (case-insensitive)."
+  (when-let* ((root (project-current))
+              (rel (file-relative-name (buffer-file-name) (project-root root))))
+    (let ((case-fold-search t)) 
+      (cond
+       ((string-match-p "controller" rel) "controller")
+       ((string-match-p "service" rel) "service")
+       ((string-match-p "repository" rel) "repository")
+       ((string-match-p "entity" rel) "entity")
+       ((string-match-p "model" rel) "data-class")
+       ((string-match-p "enum" rel) "enum")
+       (t "normal")))))
+
 (defun my-kotlin-insert-template ()
   "Prompt to insert a Kotlin class template."
   (interactive)
-  (let* ((templates '(("data class" . my-kotlin-insert-data-class)
+  (let* ((templates '(("data-class" . my-kotlin-insert-data-class)
                       ("enum" . my-kotlin-insert-enum)
                       ("controller" . my-kotlin-insert-controller)
                       ("service" . my-kotlin-insert-service)
                       ("entity" . my-kotlin-insert-entity)
                       ("repository" . my-kotlin-insert-repository)
 											("normal"      . my-kotlin-insert-class)))
-				 (choice (completing-read "Insert Kotlin: " (mapcar #'car templates)))
+         (choices (mapcar #'car templates))
+         (default (my-guess-kotlin-class-template))
+         (prompt (format "Insert Kotlin (default %s): " default))
+         (choice (completing-read prompt choices nil t nil nil default))
 				 (skeleton (cdr (assoc choice templates))))
 		(when skeleton
 			(funcall skeleton))))

@@ -9,7 +9,8 @@
 (global-so-long-mode)
 (savehist-mode 1)
 (repeat-mode 1)
-(global-superword-mode)                 ;for camelCase and snake_case
+(global-superword-mode -1)                 ;for camelCase and snake_case
+(winner-mode 1)
 
 (make-directory (expand-file-name "backups/" user-emacs-directory) t)
 (setq backup-directory-alist `(("." . ,(expand-file-name "backups/" user-emacs-directory))))
