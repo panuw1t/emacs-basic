@@ -60,6 +60,7 @@
 
 (add-hook 'compilation-mode-hook
           (lambda ()
+						(visual-line-mode -1)
             (setq truncate-lines t)))
 
 (with-eval-after-load 'compile

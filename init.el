@@ -4,6 +4,9 @@
            (file-exists-p custom-file))
   (load custom-file nil :nomessage))
 
+(when (fboundp 'set-fontset-font)
+  (set-fontset-font "fontset-default" 'thai (font-spec :family "Noto Sans Thai")))
+
 (defun my/load-config (name)
   "Load a config file from `user-emacs-directory/config/` given NAME (without extension)."
   (let ((file (expand-file-name (concat name ".el")
@@ -90,36 +93,36 @@
 ;;   (add-hook 'completion-at-point-functions #'cape-dabbrev))
 
 ;; lsp + tree-sitter
-(use-package eglot
-  :hook ((c-mode          . eglot-ensure)
-         (c++-mode        . eglot-ensure)
-         (js-mode         . eglot-ensure)
-         (typescript-mode . eglot-ensure)
-         (kotlin-ts-mode  . eglot-ensure)
-         (js-ts-mode  . eglot-ensure))
-  :config
-  (add-to-list 'eglot-server-programs
-               '(kotlin . ("kotlin-language-server"))
-               '(kotlin-ts-mode . ("kotlin-language-server")))
-  (setq eglot-autoshutdown t)
-  (setq eglot-ignored-server-capabilities '(:documentHighlightProvider))
-	)
+;; (use-package eglot
+;;   :hook ((c-mode          . eglot-ensure)
+;;          (c++-mode        . eglot-ensure)
+;;          (js-mode         . eglot-ensure)
+;;          (typescript-mode . eglot-ensure)
+;;          (kotlin-ts-mode  . eglot-ensure)
+;;          (js-ts-mode  . eglot-ensure))
+;;   :config
+;;   (add-to-list 'eglot-server-programs
+;;                '(kotlin . ("kotlin-language-server"))
+;;                '(kotlin-ts-mode . ("kotlin-language-server")))
+;;   (setq eglot-autoshutdown t)
+;;   (setq eglot-ignored-server-capabilities '(:documentHighlightProvider))
+;; 	)
 
-(use-package tree-sitter
-  :config
-  (global-tree-sitter-mode)
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-ts-mode . typescript))
-  (add-to-list 'tree-sitter-major-mode-language-alist '(kotlin-ts-mode . kotlin))
-  (add-to-list 'tree-sitter-major-mode-language-alist '(js-ts-mode . javascript)))
+;; (use-package tree-sitter
+;;   :config
+;;   (global-tree-sitter-mode)
+;;   (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-ts-mode . typescript))
+;;   (add-to-list 'tree-sitter-major-mode-language-alist '(kotlin-ts-mode . kotlin))
+;;   (add-to-list 'tree-sitter-major-mode-language-alist '(js-ts-mode . javascript)))
 
-(use-package tree-sitter-langs
-  :config
-  (setq treesit-language-source-alist '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-                                        (kotlin "https://github.com/fwcd/tree-sitter-kotlin")
-																				(javascript "https://github.com/tree-sitter/tree-sitter-javascript"))))
+;; (use-package tree-sitter-langs
+;;   :config
+;;   (setq treesit-language-source-alist '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+;;                                         (kotlin "https://github.com/fwcd/tree-sitter-kotlin")
+;; 																				(javascript "https://github.com/tree-sitter/tree-sitter-javascript"))))
 
-(use-package tree-sitter-indent)
-(use-package tree-sitter-ispell)
+;; (use-package tree-sitter-indent)
+;; (use-package tree-sitter-ispell)
 ;; (use-package treesit-auto
 ;;   :custom
 ;;   (treesit-auto-install 'prompt)
@@ -127,15 +130,15 @@
 ;;   (treesit-auto-add-to-auto-mode-alist 'all)
 ;;   (global-treesit-auto-mode))
 
-(use-package meow-tree-sitter
-  :config
-  (meow-tree-sitter-register-defaults))
+;; (use-package meow-tree-sitter
+;;   :config
+;;   (meow-tree-sitter-register-defaults))
 
 
 ;;misc
 ;; (use-package smartparens
 ;;   :hook ((prog-mode . smartparens-mode)))
 
-(use-package kotlin-mode)
+;; (use-package kotlin-mode)
 
 (use-package magit)

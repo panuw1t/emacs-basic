@@ -121,3 +121,6 @@
 
 (global-set-key (kbd "M-/") 'hippie-expand)
 
+(add-hook 'shell-mode-hook
+					(lambda ()
+						(meow-mode -1)))
