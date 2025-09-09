@@ -62,11 +62,11 @@
 ;; completion
 (use-package vertico
   :custom
-   (vertico-cycle t)
+  (vertico-cycle t)
   :init
   (vertico-mode))
 
-;; (use-package orderless
+;; (use-package orderless                  ; provide completion-styles check 
 ;;   :custom
 ;;   (completion-styles '(orderless basic))
 ;;   (completion-category-overrides '((file (styles basic partial-completion)))))

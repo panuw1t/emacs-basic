@@ -18,6 +18,7 @@
    ;; Use SPC (0-9) for digit arguments.
    '("<SPC>" . switch-to-buffer)
    '("f f" . project-find-file)
+   '("f a" . (lambda () (interactive) (project-find-file 'INCLUDE-ALL)))
    '("f g" . project-find-regexp)
    '("f r" . recentf)
    '("e" . project-dired)

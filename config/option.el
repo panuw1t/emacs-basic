@@ -24,7 +24,7 @@
 (setq switch-to-buffer-obey-display-actions t)
 (setq ibuffer-movement-cycle t)
 (setq ibuffer-old-time 72)
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq kill-do-not-save-duplicates t)
 (setq bidi-paragraph-direction 'left-to-right)
@@ -97,3 +97,6 @@
 	(global-set-key (kbd "C-c l") #'org-store-link)
 	(global-set-key (kbd "C-c a") #'org-agenda)
 	(global-set-key (kbd "C-c c") #'org-capture))
+
+;; completion
+(setq-default read-file-name-completion-ignore-case t)
