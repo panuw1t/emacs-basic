@@ -3,8 +3,8 @@
 (define-skeleton my-kotlin-insert-if
   "Insert if-else block in Kotlin."
   nil
-	> "if (" _ ") {\n\n"
-	 "}" >)
+  > "if (" _ ") {\n\n"
+  "}" >)
 
 (define-abbrev prog-mode-abbrev-table "if" "" 'my-kotlin-insert-if)
 
@@ -17,94 +17,94 @@
 (define-auto-insert "\\.kt\\'" 'my-kotlin-insert-template)
 
 (defun my-spring-boot-make-package ()
-	"Return a package name based on buffer or file."
-	(when-let* ((root (project-current))
-							(rel (file-relative-name	(buffer-file-name)	(project-root root)))
-							(stripped (replace-regexp-in-string "^src/main/[^/]+/" "" rel))
-							(dir (file-name-directory stripped)))
-		(replace-regexp-in-string "/" "." (replace-regexp-in-string "/$" "" dir))))
+  "Return a package name based on buffer or file."
+  (when-let* ((root (project-current))
+              (rel (file-relative-name	(buffer-file-name)	(project-root root)))
+              (stripped (replace-regexp-in-string "^src/main/[^/]+/" "" rel))
+              (dir (file-name-directory stripped)))
+    (replace-regexp-in-string "/" "." (replace-regexp-in-string "/$" "" dir))))
 
 (defun my-get-filename()
-	"get filename without extension"
-	(file-name-sans-extension (file-name-nondirectory (or (buffer-file-name) ""))))
-	
+  "get filename without extension"
+  (file-name-sans-extension (file-name-nondirectory (or (buffer-file-name) ""))))
+
 (define-skeleton my-kotlin-insert-class
-	"insert class kotlin"
-	nil
-	(when-let ((package (my-spring-boot-make-package)))
-		(concat "package " package "\n\n"))
-	"class " (my-get-filename) " {\n"
-	> _ "\n}")
+  "insert class kotlin"
+  nil
+  (when-let ((package (my-spring-boot-make-package)))
+    (concat "package " package "\n\n"))
+  "class " (my-get-filename) " {\n"
+  > _ "\n}")
 
 (define-skeleton my-kotlin-insert-data-class
-	"insert data class kotlin"
-	nil
-	(when-let ((package (my-spring-boot-make-package)))
-		(concat "package " package "\n\n"))
-	"data class " (my-get-filename) "(\n"
-	> _ "\n)")
+  "insert data class kotlin"
+  nil
+  (when-let ((package (my-spring-boot-make-package)))
+    (concat "package " package "\n\n"))
+  "data class " (my-get-filename) "(\n"
+  > _ "\n)")
 
 (define-skeleton my-kotlin-insert-enum
-	"insert enum class kotlin"
-	nil
-	(when-let ((package (my-spring-boot-make-package)))
-		(concat "package " package "\n\n"))
-	"enum class " (my-get-filename) " {\n"
-	> _ "\n}")
+  "insert enum class kotlin"
+  nil
+  (when-let ((package (my-spring-boot-make-package)))
+    (concat "package " package "\n\n"))
+  "enum class " (my-get-filename) " {\n"
+  > _ "\n}")
 
 (define-skeleton my-kotlin-insert-controller
-	"insert controller class spring-boot kotlin"
-	nil
-	(when-let ((package (my-spring-boot-make-package)))
-		(concat "package " package "\n\n"))
-	"import org.springframework.web.bind.annotation.RestController\n"
-	"import org.springframework.web.bind.annotation.RequestMapping\n\n"
-	"@RestController\n"
-	"@RequestMapping(\"\")" "\n"
-	"class " (my-get-filename) " {\n"
-	> _ "\n}")
+  "insert controller class spring-boot kotlin"
+  nil
+  (when-let ((package (my-spring-boot-make-package)))
+    (concat "package " package "\n\n"))
+  "import org.springframework.web.bind.annotation.RestController\n"
+  "import org.springframework.web.bind.annotation.RequestMapping\n\n"
+  "@RestController\n"
+  "@RequestMapping(\"\")" "\n"
+  "class " (my-get-filename) " {\n"
+  > _ "\n}")
 
 (define-skeleton my-kotlin-insert-service
-	"insert service class spring-boot kotlin"
-	nil
-	(when-let ((package (my-spring-boot-make-package)))
-		(concat "package " package "\n\n"))
-	"import org.springframework.stereotype.Service\n\n"
-	"@Service\n"
-	"class " (my-get-filename) " {\n"
-	> _ "\n}")
+  "insert service class spring-boot kotlin"
+  nil
+  (when-let ((package (my-spring-boot-make-package)))
+    (concat "package " package "\n\n"))
+  "import org.springframework.stereotype.Service\n\n"
+  "@Service\n"
+  "class " (my-get-filename) " {\n"
+  > _ "\n}")
 
 (define-skeleton my-kotlin-insert-entity
-	"insert entity class spring-boot kotlin"
-	nil
-	(when-let ((package (my-spring-boot-make-package)))
-		(concat "package " package "\n\n"))
-	"import jakarta.persistence.Entity\n"
-	"import jakarta.persistence.GeneratedValue\n"
-	"import jakarta.persistence.Id\n"
-	"import jakarta.persistence.GenerationType\n"
-	"import jakarta.persistence.Table\n\n"
-	"@Entity\n"
-	"@Table(name = \"\")\n"
-	"class " (my-get-filename) "(\n"
-	>	"@Id\n"
-	> "@GeneratedValue(strategy = GenerationType.IDENTITY)\n"
+  "insert entity class spring-boot kotlin"
+  nil
+  (when-let ((package (my-spring-boot-make-package)))
+    (concat "package " package "\n\n"))
+  "import jakarta.persistence.Entity\n"
+  "import jakarta.persistence.GeneratedValue\n"
+  "import jakarta.persistence.Id\n"
+  "import jakarta.persistence.GenerationType\n"
+  "import jakarta.persistence.Table\n\n"
+  "@Entity\n"
+  "@Table(name = \"\")\n"
+  "class " (my-get-filename) "(\n"
+  > "@Id\n"
+  > "@GeneratedValue(strategy = GenerationType.IDENTITY)\n"
   > "val id: Long = 0L,\n"
-	> _ "\n)")
+  > _ "\n)")
 
 (define-skeleton my-kotlin-insert-repository
-	"insert repository class spring-boot kotlin"
-	nil
-	(when-let ((package (my-spring-boot-make-package)))
-		(concat "package " package "\n\n"))
-	"import org.springframework.data.jpa.repository.JpaRepository\n\n"
-	"interface " (my-get-filename) " : JpaRepository<" _ ", Long> {\n\n}")
+  "insert repository class spring-boot kotlin"
+  nil
+  (when-let ((package (my-spring-boot-make-package)))
+  (concat "package " package "\n\n"))
+  "import org.springframework.data.jpa.repository.JpaRepository\n\n"
+  "interface " (my-get-filename) " : JpaRepository<" _ ", Long> {\n\n}")
 
 (defun my-guess-kotlin-class-template ()
   "Guess Kotlin class template from file path (case-insensitive)."
   (when-let* ((root (project-current))
               (rel (file-relative-name (buffer-file-name) (project-root root))))
-    (let ((case-fold-search t)) 
+    (let ((case-fold-search t))
       (cond
        ((string-match-p "controller" rel) "controller")
        ((string-match-p "service" rel) "service")
@@ -123,11 +123,11 @@
                       ("service" . my-kotlin-insert-service)
                       ("entity" . my-kotlin-insert-entity)
                       ("repository" . my-kotlin-insert-repository)
-											("normal"      . my-kotlin-insert-class)))
+                      ("normal"      . my-kotlin-insert-class)))
          (choices (mapcar #'car templates))
          (default (my-guess-kotlin-class-template))
          (prompt (format "Insert Kotlin (default %s): " default))
          (choice (completing-read prompt choices nil t nil nil default))
-				 (skeleton (cdr (assoc choice templates))))
-		(when skeleton
-			(funcall skeleton))))
+         (skeleton (cdr (assoc choice templates))))
+    (when skeleton
+      (funcall skeleton))))

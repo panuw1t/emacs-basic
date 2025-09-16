@@ -60,18 +60,18 @@
 
 (add-hook 'compilation-mode-hook
           (lambda ()
-						(visual-line-mode -1)
+            (visual-line-mode -1)
             (setq truncate-lines t)))
 
 (with-eval-after-load 'compile
   ;; set cursor to follow compilation output
   (setq compilation-scroll-output t)
 
-	(add-to-list 'compilation-error-regexp-alist 'gradle-kotlin)
-	(add-to-list 'compilation-error-regexp-alist-alist
-							 '(gradle-kotlin
-								 "^e: file://\\([^:]+\\):\\([0-9]+\\):\\([0-9]+\\)"
-								 1 2 3)))
+  (add-to-list 'compilation-error-regexp-alist 'gradle-kotlin)
+  (add-to-list 'compilation-error-regexp-alist-alist
+               '(gradle-kotlin
+                 "^e: file://\\([^:]+\\):\\([0-9]+\\):\\([0-9]+\\)"
+                 1 2 3)))
 
 ;; color for compile buffer ?
 (require 'ansi-color)
@@ -82,7 +82,7 @@
 
 ;; project.el
 (with-eval-after-load 'project
-	(add-to-list 'project-switch-commands '(project-compile "compile")))
+  (add-to-list 'project-switch-commands '(project-compile "compile")))
 
 ;; visual line mode
 (with-eval-after-load 'simple
@@ -94,9 +94,17 @@
 
 ;; org mode
 (with-eval-after-load 'org
-	(global-set-key (kbd "C-c l") #'org-store-link)
-	(global-set-key (kbd "C-c a") #'org-agenda)
-	(global-set-key (kbd "C-c c") #'org-capture))
+  (global-set-key (kbd "C-c l") #'org-store-link)
+  (global-set-key (kbd "C-c a") #'org-agenda)
+  (global-set-key (kbd "C-c c") #'org-capture))
 
 ;; completion
 (setq-default read-file-name-completion-ignore-case t)
+(setq-default read-buffer-completion-ignore-case t)
+
+;; whitespace-mode
+;; (setq whitespace-line-column 80)
+(setq whitespace-style '(face tabs tab-mark))
+(setq-default show-trailing-whitespace t)
+(add-hook 'prog-mode-hook 'whitespace-mode)
+

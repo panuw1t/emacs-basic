@@ -28,3 +28,4 @@ custom.el
 # Optional: byte-compiled files
 *.eln
 /abbrev_defs
+/eln-cache/

@@ -27,6 +27,7 @@
    '("o" . other-window)
    '("v d" . vc-dir-root)
    '("v c" . vc-next-action)
+   '("v v" . magit)
    '("p c" . project-compile)
    '("p r" . recompile)
    '("1" . meow-digit-argument)
