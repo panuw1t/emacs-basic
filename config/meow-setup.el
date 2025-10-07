@@ -72,7 +72,7 @@
    '("g" . meow-cancel-selection)
    '("G" . meow-grab)
    '("h" . meow-left)
-   '("H" . meow-left-expand)
+   '("H" . winner-undo)
    '("i" . meow-insert)
    '("O" . meow-open-above)
    '("j" . meow-next)
@@ -80,7 +80,7 @@
    '("k" . meow-prev)
    '("K" . meow-prev-expand)
    '("l" . meow-right)
-   '("L" . meow-right-expand)
+   '("L" . winner-redo)
    '("m" . meow-join)
    '("n" . meow-search)
    '("v" . meow-block)
@@ -121,8 +121,11 @@
 
 ;; M-m to the beginning of the line without white space
 
-(global-set-key (kbd "M-/") 'hippie-expand)
 
 (add-hook 'shell-mode-hook
-					(lambda ()
-						(meow-mode -1)))
+          (lambda ()
+            (meow-mode -1)))
+
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (meow-mode -1)))

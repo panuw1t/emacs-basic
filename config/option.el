@@ -11,6 +11,7 @@
 (repeat-mode 1)
 (global-superword-mode -1)                 ;for camelCase and snake_case
 (winner-mode 1)
+(blink-cursor-mode 0)
 
 (make-directory (expand-file-name "backups/" user-emacs-directory) t)
 (setq backup-directory-alist `(("." . ,(expand-file-name "backups/" user-emacs-directory))))
@@ -19,7 +20,6 @@
 (setq global-auto-revert-non-file-buffers t)
 (setq dired-dwim-target t)
 (setq dired-auto-revert-buffer t)
-(setq eshell-scroll-to-bottom-on-input 'this)
 (setq switch-to-buffer-in-dedicated-window 'pop)
 (setq switch-to-buffer-obey-display-actions t)
 (setq ibuffer-movement-cycle t)
@@ -36,8 +36,8 @@
 (setq help-window-select t)  ; Switch to help buffers automatically
 
 ;;for scrolling
-(setq scroll-conservatively 10
-      scroll-margin 15)
+;; (setq scroll-conservatively 10
+;;       scroll-margin 15)
 
 (keymap-global-set "<remap> <list-buffers>" #'ibuffer-list-buffers)
 
@@ -91,7 +91,6 @@
   (define-key visual-line-mode-map [remap kill-line] #'kill-line))
 
 (global-visual-line-mode 1)
-
 ;; org mode
 (with-eval-after-load 'org
   (global-set-key (kbd "C-c l") #'org-store-link)
@@ -105,6 +104,27 @@
 ;; whitespace-mode
 ;; (setq whitespace-line-column 80)
 (setq whitespace-style '(face tabs tab-mark))
-(setq-default show-trailing-whitespace t)
+(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
+;; isearch
+;; c-s c-h c-h for doc
+(setq isearch-repeat-on-direction-change t)
+(setq isearch-wrap-pause 'no)
+
+
+;; hippie expand
+(global-set-key (kbd "M-/") 'hippie-expand)
+(setq hippie-expand-try-functions-list '(try-expand-dabbrev
+                                         try-expand-line
+                                         try-expand-list
+                                         try-complete-file-name-partially
+                                         try-complete-lisp-symbol-partially
+                                         try-complete-lisp-symbol
+                                         try-complete-file-name
+                                         try-expand-all-abbrevs
+                                         try-expand-dabbrev-all-buffers
+                                         try-expand-dabbrev-from-kill))
+
+;; eshell
+(setq eshell-scroll-to-bottom-on-input 'this)

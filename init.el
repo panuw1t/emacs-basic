@@ -141,4 +141,6 @@
 
 ;; (use-package kotlin-mode)
 
-(use-package magit)
+(use-package magit
+  :bind (:map magit-mode-map
+              ("C-k" . magit-discard)))
