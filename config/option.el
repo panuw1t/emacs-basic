@@ -73,8 +73,7 @@
                  "^e: file://\\([^:]+\\):\\([0-9]+\\):\\([0-9]+\\)"
                  1 2 3)))
 
-;; color for compile buffer ?
-(require 'ansi-color)
+(require 'ansi-color) ;; color for compile buffer ?
 (defun colorize-compilation-buffer ()
   (let ((inhibit-read-only t))
     (ansi-color-apply-on-region (point-min) (point-max))))
@@ -89,8 +88,8 @@
   (define-key visual-line-mode-map [remap move-beginning-of-line] #'move-beginning-of-line)
   (define-key visual-line-mode-map [remap move-end-of-line] #'move-end-of-line)
   (define-key visual-line-mode-map [remap kill-line] #'kill-line))
-
 (global-visual-line-mode 1)
+
 ;; org mode
 (with-eval-after-load 'org
   (global-set-key (kbd "C-c l") #'org-store-link)
@@ -104,8 +103,16 @@
 ;; whitespace-mode
 ;; (setq whitespace-line-column 80)
 (setq whitespace-style '(face tabs tab-mark))
-(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
-(add-hook 'prog-mode-hook 'whitespace-mode)
+
+(defvar my-whitespace-excluded-modes
+  '(makefile-gmake-mode)
+  "List of modes where `my-whitespace-mode` should not be enabled.")
+
+(defun my-whitespace-mode ()
+  (setq show-trailing-whitespace t)
+  (unless (memq major-mode my-whitespace-excluded-modes)
+    (whitespace-mode)))
+(add-hook 'prog-mode-hook 'my-whitespace-mode)
 
 ;; isearch
 ;; c-s c-h c-h for doc
@@ -127,4 +134,18 @@
                                          try-expand-dabbrev-from-kill))
 
 ;; eshell
-(setq eshell-scroll-to-bottom-on-input 'this)
+(setq eshell-scroll-to-bottom-on-input nil)
+(setq eshell-scroll-to-bottom-on-output nil)
+(setq eshell-scroll-show-maximum-output nil)
+(defun my-eshell-recenter ()
+  (interactive)
+  (recenter-top-bottom 0))
+(defun my-hook-eshell ()
+  (local-set-key (kbd "C-l") 'my-eshell-recenter))
+(add-hook 'eshell-mode-hook 'my-hook-eshell)
+
+(defun my-zoxide (&optional args)
+  (if (not args)
+      (eshell/cd "~")
+    (let ((dir (string-trim (shell-command-to-string (format "zoxide query %s" (shell-quote-argument args))))))
+      (eshell/cd dir))))

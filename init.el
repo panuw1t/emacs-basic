@@ -39,10 +39,10 @@
 
 (use-package helpful
   :bind (("C-h f" . helpful-callable)
-	 ("C-h v" . helpful-variable)
-	 ("C-h k" . helpful-key)
-	 ("C-c C-d" . helpful-at-point)
-	 ("C-h x" . helpful-command)))
+         ("C-h v" . helpful-variable)
+         ("C-h k" . helpful-key)
+         ("C-c C-d" . helpful-at-point)
+         ("C-h x" . helpful-command)))
 
 (use-package elisp-demos
   :after helpful
@@ -66,10 +66,10 @@
   :init
   (vertico-mode))
 
-;; (use-package orderless                  ; provide completion-styles check 
-;;   :custom
-;;   (completion-styles '(orderless basic))
-;;   (completion-category-overrides '((file (styles basic partial-completion)))))
+(use-package orderless                  ; provide completion-styles check
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 ;; (use-package marginalia
 ;;   :bind (:map minibuffer-local-map
@@ -86,11 +86,11 @@
 ;;   (global-corfu-mode)
 ;;   (corfu-popupinfo-mode))
 
-;; (use-package cape			;backend for completion
-;;   :bind ("C-c p" . cape-prefix-map)
-;;   :init
-;;   (add-hook 'completion-at-point-functions #'cape-file)
-;;   (add-hook 'completion-at-point-functions #'cape-dabbrev))
+(use-package cape
+  :bind ("C-c c" . cape-prefix-map)
+  :init
+  ;; (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-dabbrev))
 
 ;; lsp + tree-sitter
 ;; (use-package eglot

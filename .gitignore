@@ -29,3 +29,4 @@ custom.el
 *.eln
 /abbrev_defs
 /eln-cache/
+/semanticdb/

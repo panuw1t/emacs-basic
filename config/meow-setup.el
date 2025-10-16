@@ -29,6 +29,7 @@
    '("v c" . vc-next-action)
    '("v v" . magit)
    '("p c" . project-compile)
+   '("p e" . project-eshell)
    '("p r" . recompile)
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
@@ -121,11 +122,10 @@
 
 ;; M-m to the beginning of the line without white space
 
+(global-set-key (kbd "C-z") 'meow-normal-mode)
 
-(add-hook 'shell-mode-hook
-          (lambda ()
-            (meow-mode -1)))
+(defun my-meow-disable ()
+  (meow-mode -1))
 
-(add-hook 'eshell-mode-hook
-          (lambda ()
-            (meow-mode -1)))
+(add-hook 'shell-mode-hook 'my-meow-disable)
+(add-hook 'eshell-mode-hook 'my-meow-disable)
