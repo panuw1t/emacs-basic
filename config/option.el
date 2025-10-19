@@ -149,3 +149,10 @@
       (eshell/cd "~")
     (let ((dir (string-trim (shell-command-to-string (format "zoxide query %s" (shell-quote-argument args))))))
       (eshell/cd dir))))
+
+(defun my-eshell-zoxide-add-pwd ()
+  (when (and (boundp 'eshell-last-dir-ring)
+             (eshell/pwd))
+    (start-process "zoxide-add" nil "zoxide" "add" (eshell/pwd))))
+
+(add-hook 'eshell-directory-change-hook #'my-eshell-zoxide-add-pwd)

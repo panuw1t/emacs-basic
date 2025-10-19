@@ -123,6 +123,7 @@
 ;; M-m to the beginning of the line without white space
 
 (global-set-key (kbd "C-z") 'meow-normal-mode)
+(global-set-key (kbd "C-o") 'meow-open-above)
 
 (defun my-meow-disable ()
   (meow-mode -1))
