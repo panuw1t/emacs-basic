@@ -20,8 +20,6 @@
 (setq global-auto-revert-non-file-buffers t)
 (setq dired-dwim-target t)
 (setq dired-auto-revert-buffer t)
-(setq switch-to-buffer-in-dedicated-window 'pop)
-(setq switch-to-buffer-obey-display-actions t)
 (setq ibuffer-movement-cycle t)
 (setq ibuffer-old-time 72)
 (setq-default indent-tabs-mode nil)
@@ -33,13 +31,10 @@
 (setq savehist-file (expand-file-name "history" user-emacs-directory))
 (setq bookmark-save-flag 1)
 (setq load-prefer-newer t)
-(setq help-window-select t)  ; Switch to help buffers automatically
 
 ;;for scrolling
 ;; (setq scroll-conservatively 10
 ;;       scroll-margin 15)
-
-(keymap-global-set "<remap> <list-buffers>" #'ibuffer-list-buffers)
 
 (with-eval-after-load 'ispell
   (when (executable-find ispell-program-name)
@@ -52,6 +47,9 @@
 (add-hook 'after-save-hook
           #'executable-make-buffer-file-executable-if-script-p)
 
+;; global keymap
+(keymap-global-set "<remap> <list-buffers>" #'ibuffer-list-buffers)
+(keymap-global-set "M-o" #'other-window)
 
 ;; compilation
 (setopt compilation-always-kill t)
@@ -92,9 +90,9 @@
 
 ;; org mode
 (with-eval-after-load 'org
-  (global-set-key (kbd "C-c l") #'org-store-link)
-  (global-set-key (kbd "C-c a") #'org-agenda)
-  (global-set-key (kbd "C-c c") #'org-capture))
+  (keymap-global-set "C-c l" #'org-store-link)
+  (keymap-global-set "C-c a" #'org-agenda)
+  (keymap-global-set "C-c c" #'org-capture))
 
 ;; completion
 (setq-default read-file-name-completion-ignore-case t)
@@ -121,7 +119,7 @@
 
 
 ;; hippie expand
-(global-set-key (kbd "M-/") 'hippie-expand)
+(keymap-global-set "M-/" #'hippie-expand)
 (setq hippie-expand-try-functions-list '(try-expand-dabbrev
                                          try-expand-line
                                          try-expand-list
@@ -156,3 +154,26 @@
     (start-process "zoxide-add" nil "zoxide" "add" (eshell/pwd))))
 
 (add-hook 'eshell-directory-change-hook #'my-eshell-zoxide-add-pwd)
+
+;; window managerment
+(setq switch-to-buffer-obey-display-actions t)
+(setq switch-to-buffer-in-dedicated-window 'pop)
+;; (setq help-window-select t)  ; Switch to help buffers automatically
+
+(setq display-buffer-alist `(((or (major-mode . help-mode) (major-mode . helpful-mode))
+                              (display-buffer-reuse-mode-window display-buffer-reuse-window display-buffer-pop-up-window)
+                              (mode . (helful-mode help-mode)))
+                             (,(rx "*" (or "compilation" "eshell") "*")
+                              (display-buffer-reuse-mode-window display-buffer-in-direction)
+                              (mode . (compilation-mode eshell-mode))
+                              (direction . bottom)
+                              (window-height . 0.3))
+                             (,(rx "*" (or "*xref*" "*grep*" "*Occur*") "*")
+                              (display-buffer-reuse-window)
+                              (inhibit-same-window . nil))
+                             ("magit: .*"
+                              (display-buffer-same-window)
+                              (window . root)
+                              (window-height . 1.0)
+                              (inhibit-same-window . nil))
+                             ))

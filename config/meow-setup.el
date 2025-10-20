@@ -24,7 +24,6 @@
    '("e" . project-dired)
    '("s" . project-switch-project)
    '("r" . "C-x r")
-   '("o" . other-window)
    '("v d" . vc-dir-root)
    '("v c" . vc-next-action)
    '("v v" . magit)
@@ -122,8 +121,8 @@
 
 ;; M-m to the beginning of the line without white space
 
-(global-set-key (kbd "C-z") 'meow-normal-mode)
-(global-set-key (kbd "C-o") 'meow-open-above)
+(keymap-global-set "C-z" #'meow-normal-mode)
+(keymap-global-set "C-o" #'meow-open-above)
 
 (defun my-meow-disable ()
   (meow-mode -1))
