@@ -9,7 +9,7 @@
 (define-abbrev prog-mode-abbrev-table "if" "" 'my-kotlin-insert-if)
 
 ;; (setq skeleton-pair t)
-;; (electric-pair-mode 1)
+(electric-pair-mode 1)
 
 (auto-insert-mode t)
 (setq auto-insert-query nil)

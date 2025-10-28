@@ -51,6 +51,17 @@
 (keymap-global-set "<remap> <list-buffers>" #'ibuffer-list-buffers)
 (keymap-global-set "M-o" #'other-window)
 
+(defun my/backward-kill-word ()
+  (interactive)
+  (if (and (> (point) (point-min))
+           (member (char-before) `(?\ ?\t ?\n)))
+      (let ((origin (point)))
+        (skip-chars-backward " \t\n")
+        (kill-region (point) origin))
+    (backward-kill-word 1)))
+
+(keymap-global-set "<remap> <backward-kill-word>" #'my/backward-kill-word)
+
 ;; compilation
 (setopt compilation-always-kill t)
 (setopt compilation-environment
@@ -92,7 +103,8 @@
 (with-eval-after-load 'org
   (keymap-global-set "C-c l" #'org-store-link)
   (keymap-global-set "C-c a" #'org-agenda)
-  (keymap-global-set "C-c c" #'org-capture))
+  ;; (keymap-global-set "C-c c" #'org-capture)
+  )
 
 ;; completion
 (setq-default read-file-name-completion-ignore-case t)
@@ -177,3 +189,8 @@
                               (window-height . 1.0)
                               (inhibit-same-window . nil))
                              ))
+
+(defun my/switch-to-buffer (buffer-or-name)
+  "just override display-buffer-alist rule"
+  (interactive "b!Switch to buffer: ")
+  (set-window-buffer (selected-window) buffer-or-name))

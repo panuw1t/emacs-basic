@@ -16,7 +16,7 @@
       (message "⚠️ Config file not found: %s" file))))
 
 (my/load-config "option")
-;; (my/load-config "my-completion")
+(my/load-config "my-completion")
 
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)

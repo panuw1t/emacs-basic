@@ -17,6 +17,7 @@
   (meow-leader-define-key
    ;; Use SPC (0-9) for digit arguments.
    '("<SPC>" . switch-to-buffer)
+   '("w" . my/switch-to-buffer)
    '("f f" . project-find-file)
    '("f a" . (lambda () (interactive) (project-find-file 'INCLUDE-ALL)))
    '("f g" . project-find-regexp)
