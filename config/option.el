@@ -1,5 +1,4 @@
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-(load-theme 'wombat)
 (scroll-bar-mode -1)
 (when (not (eq system-type 'darwin))
   (menu-bar-mode -1))

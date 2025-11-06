@@ -26,6 +26,11 @@
   :config
   (my/load-config "meow-setup"))
 
+(use-package meow-tree-sitter
+  :after meow
+  :config
+  (meow-tree-sitter-register-defaults))
+
 (use-package key-chord
   :after meow
   :config
@@ -34,6 +39,18 @@
   (key-chord-define meow-insert-state-keymap "jk" 'meow-insert-exit))
 
 ;; ui
+;; (load-theme 'wombat)
+
+(use-package doom-themes
+  :custom
+  ;; Global settings (defaults)
+  (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
+  (doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  :config
+  (load-theme 'doom-badger t)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
 (use-package all-the-icons
   :if (display-graphic-p))
 
@@ -115,32 +132,21 @@
 ;;   (add-to-list 'tree-sitter-major-mode-language-alist '(kotlin-ts-mode . kotlin))
 ;;   (add-to-list 'tree-sitter-major-mode-language-alist '(js-ts-mode . javascript)))
 
-;; (use-package tree-sitter-langs
-;;   :config
-;;   (setq treesit-language-source-alist '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-;;                                         (kotlin "https://github.com/fwcd/tree-sitter-kotlin")
-;; 																				(javascript "https://github.com/tree-sitter/tree-sitter-javascript"))))
+(use-package tree-sitter-langs
+  :config
+  (setq treesit-language-source-alist '((kotlin "https://github.com/fwcd/tree-sitter-kotlin")
+                                        (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
-;; (use-package tree-sitter-indent)
-;; (use-package tree-sitter-ispell)
-;; (use-package treesit-auto
-;;   :custom
-;;   (treesit-auto-install 'prompt)
-;;   :config
-;;   (treesit-auto-add-to-auto-mode-alist 'all)
-;;   (global-treesit-auto-mode))
+  (my/load-config "kotlin-ts-mode") ; source   https://gitlab.com/bricka/emacs-kotlin-ts-mode
+                                        ; https://www.reddit.com/r/emacs/comments/zxg8fq/my_first_major_mode_kotlintsmode/
 
-;; (use-package meow-tree-sitter
-;;   :config
-;;   (meow-tree-sitter-register-defaults))
+  (add-to-list 'auto-mode-alist '("\\.kt\\'" . kotlin-ts-mode)))
 
 
 ;;misc
-;; (use-package smartparens
-;;   :hook ((prog-mode . smartparens-mode)))
-
-;; (use-package kotlin-mode)
 
 (use-package magit
   :bind (:map magit-mode-map
               ("C-k" . magit-discard)))
+
+(use-package dockerfile-mode)
