@@ -17,6 +17,7 @@
 
 (my/load-config "option")
 (my/load-config "my-completion")
+(my/load-config "dotenv-mode")
 
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)

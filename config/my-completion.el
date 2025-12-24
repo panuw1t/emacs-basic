@@ -6,7 +6,7 @@
   > "if (" _ ") {\n\n"
   "}" >)
 
-(define-abbrev prog-mode-abbrev-table "if" "" 'my-kotlin-insert-if)
+;; (define-abbrev prog-mode-abbrev-table "if" "" 'my-kotlin-insert-if)
 
 ;; (setq skeleton-pair t)
 (electric-pair-mode 1)
